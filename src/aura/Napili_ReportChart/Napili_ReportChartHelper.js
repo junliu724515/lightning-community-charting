@@ -1,69 +1,43 @@
 ({
-	donutChart : function(data, xValue, yValue) {
 		
-        //donut
-        var chart = AmCharts.makeChart( "chartdiv", {
-          "type": "pie",
-          "theme": "light",
-          "dataProvider": data,
-          "titleField": xValue,
-          "valueField": yValue,
-          "labelRadius": 1,
-          "legend":{
-              "position":"bottom",
-              "align": "center"
-              
-          },
-          "radius": "42%",
-          "innerRadius": "60%",
-          "labelText": "",
-          "valueAxes": {
-                "unit": "$",
-                "unitPosition": "left",
-               
-            }, 
-          "export": {
-            "enabled": true
-          }
-        } );
-        
-	},
-    
-    pieChart : function(data, xValue, yValue){
-        
-        debugger;
-        var chart = AmCharts.makeChart( "chartdiv", {
+    pieChart : function(data, donutChart){
+
+        var config = {
               "type": "pie",
-              "theme": "light",
               "dataProvider": data,
-              "valueField": yValue,
-              "titleField": xValue,
+              "valueField": "value",
+              "titleField": "summary",
                "labelText": "",
                "labelRadius": 1,
-               "radius": "42%",
+               "radius": "42%",  
                "legend":{
                    "position":"bottom",
                    "align": "center"
                    
-                  },
+               },
                "balloon":{
                "fixedPosition":true
               },
               "export": {
                 "enabled": true
               }
-            } );
+            }
+        
+        if (donutChart){
+            
+            config.innerRadius="60%";
+        }
+        
+        var chart = AmCharts.makeChart( "chartdiv", config);
         
     },
     
-    barChart : function(data, xValue, yValue){
+    barChart : function(data, isHorizontal, lineColor){
         
-         //Bar chat
-          var chart = AmCharts.makeChart("chartdiv", {
+         var config = {
           "type": "serial",
-          "theme": "light",
-          "marginRight": 70,
           "dataProvider": data,
+          "rotate":isHorizontal,
           "valueAxes": [{
             "axisAlpha": 0,
             "position": "left",
@@ -72,38 +46,47 @@
           "startDuration": 1,
           "graphs": [{
             "balloonText": "<b>[[category]]: [[value]]</b>",
-          //  "fillColorsField": "color",
             "fillAlphas": 0.9,
             "lineAlpha": 0.2,
             "type": "column",
-            "valueField": yValue
+            "valueField": "value",
+            "lineColor": lineColor
           }],
           "chartCursor": {
             "categoryBalloonEnabled": false,
             "cursorAlpha": 0,
             "zoomable": false
           },
-          "categoryField": xValue,
+          "categoryField": "summary",
           "categoryAxis": {
             "gridPosition": "start",
-            "labelRotation": 20
+            "labelRotation": 90
           },
           "export": {
             "enabled": true
           }
         
-        }); 
+        };
+        
+       /*      
+        if (lineColor!==undefined || lineColor!='') {
+            
+            var graphs = config.graphs;           
+            graphs[0].lineColor = lineColor,
+        }
+*/
+         //Bar chat
+          var chart = AmCharts.makeChart("chartdiv", config); 
         
         
     },
     
-    lineChart : function(data, xValue, yValue){
+    lineChart : function(data, lineColor){
         
          //Bar chat
           var chart = AmCharts.makeChart("chartdiv", {
           "type": "serial",
           "theme": "light",
-         // "marginRight": 70,
           "dataProvider": data,
           "valueAxes": [{
             "axisAlpha": 0,
@@ -113,20 +96,19 @@
           "startDuration": 1,
           "graphs": [{
             "balloonText": "<b>[[category]]: [[value]]</b>",
-          //  "fillColorsField": "color",
             "fillAlphas": 0,
             "lineAlpha": 0.2,
             "type": "line",
             "bullet" : "round",
-            "lineColor" : "#2574A9",
-            "valueField": yValue
+            "lineColor" : lineColor,
+            "valueField": "value"
           }],
           "chartCursor": {
             "categoryBalloonEnabled": false,
             "cursorAlpha": 0,
             "zoomable": false
           },
-          "categoryField": xValue,
+          "categoryField": "summary",
           "categoryAxis": {
             "gridPosition": "start",
             "labelRotation": 90
@@ -138,13 +120,13 @@
         });
      },
     
-    funnelChart: function(data, xValue, yValue){
+    funnelChart: function(data){
         
         var chart = AmCharts.makeChart( "chartdiv", {
           "type": "funnel",
           "theme": "light",
           "dataProvider": data,
-          "titleField": xValue,
+          "titleField": "summary",
          
           "legend":{
               "position":"right",
@@ -154,7 +136,7 @@
           "labelText":"",
           "labelPosition": "center",
           "funnelAlpha": 0.9,
-          "valueField": yValue,
+          "valueField": "value",
           "startX": 0,
           "neckWidth": "40%",
           "startAlpha": 0,
@@ -169,81 +151,7 @@
         
     },
     
-    scatterChart: function(){
-        
-      var chart = AmCharts.makeChart("chartdiv", {
-            "type": "xy",
-            "theme": "light",
-            "autoMarginOffset": 20,
-            "dataProvider": [{
-                "ax": 1,
-                "ay": 1,
-                "bx": 1,
-                "by": 1
-            }, {
-                "ax": 2,
-                "ay": 2,
-                "bx": 2,
-                "by": 2
-            }, {
-                "ax": 9,
-                "ay": 9,
-                "bx": 9,
-                "by": 9
-            }],
-            "valueAxes": [{
-                "position": "bottom",
-                "axisAlpha": 0,
-                "dashLength": 1,
-                "title": "X Axis"
-            }, {
-                "axisAlpha": 0,
-                "dashLength": 1,
-                "position": "left",
-                "title": "Y Axis"
-            }],
-            "startDuration": 1,
-            "graphs": [{
-                "balloonText": "x:[[x]] y:[[y]]",
-                "bullet": "triangleUp",
-                "lineAlpha": 0,
-                "xField": "ax",
-                "yField": "ay",
-                "lineColor": "#FF6600",
-                "fillAlphas": 0
-            }, {
-                "balloonText": "x:[[x]] y:[[y]]",
-                "bullet": "triangleDown",
-                "lineAlpha": 0,
-                "xField": "bx",
-                "yField": "by",
-                "lineColor": "#FCD202",
-                "fillAlphas": 0
-            }],
-            "trendLines": [{
-                "finalValue": 11,
-                "finalXValue": 12,
-                "initialValue": 2,
-                "initialXValue": 1,
-                "lineColor": "#FF6600"
-            }, {
-                "finalValue": 19,
-                "finalXValue": 12,
-                "initialValue": 1,
-                "initialXValue": 1,
-                "lineColor": "#FCD202"
-            }],
-            "marginLeft": 64,
-            "marginBottom": 60,
-            "chartScrollbar": {},
-            "chartCursor": {},
-            "export": {
-                "enabled": true,
-                "position": "bottom-right"
-            }
-        });  
-        
-    },
+   
     
     horizontalBarGrouped: function(data, xValue, yValue){
         
@@ -315,7 +223,54 @@
         chart.addGraph(graph);
 
         chart.write('chartdiv');
+    
+    },
+    
+    scatter: function (data) {
         
+        var chart = new AmCharts.AmXYChart();
+        chart.dataProvider = data;
+        chart.theme="light";
         
+        var graph = new AmCharts.AmGraph();
+        graph.bullet = "diamond";
+        graph.valueField  = "value0";
+        graph.xField = "x0";
+        graph.yField = "y0";
+        graph.lineAlpha = 0;
+        graph.lineColor = "#2574A9",
+        chart.addGraph(graph);
+        
+        chart.write('chartdiv');
+    },
+    
+    scatterGrouped: function (data) {
+        
+        var chart = new AmCharts.AmXYChart();
+        chart.dataProvider = data;
+        chart.theme="light";
+        
+        var graph = new AmCharts.AmGraph();
+        graph.bullet = "diamond";
+        graph.valueField  = "value0";
+        graph.xField = "x0";
+        graph.yField = "y0";
+        graph.lineAlpha = 0;
+        graph.lineColor = "#2574A9",
+        chart.addGraph(graph);
+        
+        var graph1 = new AmCharts.AmGraph();
+        graph1.bullet = "circle";
+        graph1.valueField  = "value1";
+        graph1.xField = "x1";
+        graph1.yField = "y1";
+        graph1.lineAlpha = 0;
+       // graph1.lineColor = "#2574A9",
+        chart.addGraph(graph1);
+        
+        chart.write('chartdiv');
     }
+    
+    
+    
 })

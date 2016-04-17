@@ -1,0 +1,9 @@
+<design:component>
+    <design:attribute name="chartReportId" label="Report Id" description="" />
+    <design:attribute name="chartTheme" label="Chart Theme" datasource="light,dark,patterns,default" />
+    <design:attribute name="chartBackgroundColor" label="Chart Background Color" description="" />
+    <design:attribute name="chartTitle" label="Chart Title" description="" />
+    <design:attribute name="chartWidth" label="Chart Width" description="" />
+    <design:attribute name="chartHeight" label="Chart Height" description="" />
+    <design:attribute name="barColumnColor" label="Barchart Column and line Color" description="" />
+</design:component>

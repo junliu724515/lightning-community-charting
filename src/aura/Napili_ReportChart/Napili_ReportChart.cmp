@@ -18,6 +18,7 @@
     <aura:attribute name="sitePrefix" type="String" default="{!$SfdcSite.pathPrefix}"/>
     <aura:attribute name="chartReportId" type="String"/>
     <aura:attribute name="barColumnColor" type="String" default="#2574A9"/>
+    <aura:attribute name="chartNumber" type="String" default="1"/>
     
     <style>							
 	
@@ -36,6 +37,6 @@
         }
     </style>
     <div class="chartTitle">{!v.chartTitle}</div>
-    <div id="chartdiv" style="{!'width:'+v.chartWidth+';height:'+v.chartHeight+';font-size:11px;background-color:'+v.chartBackgroundColor}"></div>		
+    <div id="{!'chartdiv'+v.chartNumber}" style="{!'width:'+v.chartWidth+';height:'+v.chartHeight+';font-size:11px;background-color:'+v.chartBackgroundColor}"></div>		
     
 </aura:component>

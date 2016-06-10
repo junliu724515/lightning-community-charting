@@ -13,6 +13,7 @@
         var chartTitle = component.get("v.chartTitle");
         var reportId = component.get("v.chartReportId");
         var barColumnColor = component.get("v.barColumnColor");
+        var chartNo = component.get("v.chartNumber");
 
         if (chartTheme=="light") {
           AmCharts.theme = AmCharts.themes.light; 
@@ -54,28 +55,28 @@
                     }
                     
                     if (charttype=="Donut") {
-                       helper.pieChart(data, true);
+                       helper.pieChart(data, true, chartNo);
                     }
                     else if (charttype =="Pie") {
-                       helper.pieChart(data, false);
+                       helper.pieChart(data, false, chartNo);
                     }
-                    else if (charttype=="Vertical Bar") {
-                       helper.barChart(data, false, barColumnColor);     
+                    else if (~charttype.indexOf("Vertical Bar")) {
+                       helper.barChart(data, false, barColumnColor,chartNo);     
                     }
-                    else if (charttype=="Horizontal Bar") {
-                       helper.barChart(data, true, barColumnColor);     
+                    else if (~charttype.indexOf("Horizontal Bar")) {
+                       helper.barChart(data, true, barColumnColor,chartNo);     
                     }
-                    else if (charttype=="Line") {
-                       helper.lineChart(data, barColumnColor);     
+                    else if (~charttype.indexOf("Line")) {
+                       helper.lineChart(data, barColumnColor,chartNo);     
                     }
                     else if (charttype=="Funnel"){
-                       helper.funnelChart(data);      
+                       helper.funnelChart(data,chartNo);      
                     }
                     else if (charttype=="Scatter") {
-                       helper.scatter(data);
+                       helper.scatter(data,chartNo);
                     }
                     else if (charttype=="Scatter Grouped") {
-                       helper.scatterGrouped(data);    
+                       helper.scatterGrouped(data,chartNo);    
                     }
                    
                     

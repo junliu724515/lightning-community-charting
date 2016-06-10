@@ -3,8 +3,13 @@ public with sharing class Napili_ReportChartController {
     
     //get URL for report REST API
     private static string getReportRestAPIURL(String sitePrefix){
-        string url = System.URL.getSalesforceBaseUrl().getHost() + sitePrefix +'/services/data/v36.0/analytics/reports/';
-        return url;
+        
+        if (sitePrefix==null){
+            
+            return System.URL.getSalesforceBaseUrl().getHost() + '/services/data/v36.0/analytics/reports/';              
+        }
+            
+        return System.URL.getSalesforceBaseUrl().getHost() + sitePrefix +'/services/data/v36.0/analytics/reports/';
     }
     
     @AuraEnabled

@@ -1,6 +1,6 @@
 ({
 		
-    pieChart : function(data, donutChart){
+    pieChart : function(data, donutChart, chartNo){
 
         var config = {
               "type": "pie",
@@ -28,11 +28,11 @@
             config.innerRadius="60%";
         }
         
-        var chart = AmCharts.makeChart( "chartdiv", config);
+        var chart = AmCharts.makeChart( "chartdiv"+chartNo, config);
         
     },
     
-    barChart : function(data, isHorizontal, lineColor){
+    barChart : function(data, isHorizontal, lineColor, chartNo){
         
          var config = {
           "type": "serial",
@@ -76,15 +76,15 @@
         }
 */
          //Bar chat
-          var chart = AmCharts.makeChart("chartdiv", config); 
+          var chart = AmCharts.makeChart("chartdiv"+chartNo, config); 
         
         
     },
     
-    lineChart : function(data, lineColor){
+    lineChart : function(data, lineColor, chartNo){
         
          //Bar chat
-          var chart = AmCharts.makeChart("chartdiv", {
+          var chart = AmCharts.makeChart("chartdiv"+chartNo, {
           "type": "serial",
           "theme": "light",
           "dataProvider": data,
@@ -120,9 +120,9 @@
         });
      },
     
-    funnelChart: function(data){
+    funnelChart: function(data, chartNo){
         
-        var chart = AmCharts.makeChart( "chartdiv", {
+        var chart = AmCharts.makeChart( "chartdiv"+chartNo, {
           "type": "funnel",
           "theme": "light",
           "dataProvider": data,
@@ -150,83 +150,9 @@
       
         
     },
-    
-   
-    
-    horizontalBarGrouped: function(data, xValue, yValue){
-        
-      var chart = AmCharts.makeChart("chartdiv", {
-            "type": "serial",
-             "theme": "light",
-            "categoryField": xValue,
-            "rotate": true,
-            "startDuration": 1,
-            "categoryAxis": {
-                "gridPosition": "start",
-                "position": "left"
-            },
-            "trendLines": [],
-            "graphs": [
-                {
-                    "balloonText": "[[value]]",
-                    "fillAlphas": 0.8,
-                    "id": "AmGraph-1",
-                    "lineAlpha": 0.2,
-                    "title": "Income",
-                    "type": "column",
-                    "valueField": yValue
-                },    
-            ],
-            "guides": [],
-            "valueAxes": [
-                {
-                    "id": "ValueAxis-1",
-                    "position": "top",
-                    "axisAlpha": 0
-                }
-            ],
-            "allLabels": [],
-            "balloon": {},
-            "titles": [],
-            "dataProvider": data,
-            "export": {
-                "enabled": true
-             }
-        
-        });  
-    },
-    
-    verticalBar: function(data, xValue, yValue) {
-        
-        var chart = new AmCharts.AmSerialChart();
-        chart.dataProvider = data;
-        chart.categoryField = xValue;
-        chart.theme="light";
-       // chart.rotate="true";
-        
-        var categoryAxis = chart.categoryAxis;
-        categoryAxis.gridPosition = "start";
-        categoryAxis.labelRotation = 90;
-        
-        var legend = new AmCharts.AmLegend();
-        legend.position="bottom";
-        legend.align="center";
-        chart.addLegend(legend); 
-        
-        var graph = new AmCharts.AmGraph();
-        graph.valueField = yValue;
-      //  graph.title= yValue;
-        graph.type = "column";
-        graph.fillAlphas = 0.8;
-        graph.lineAlpha = 0.3;
-        graph.lineColor = "#2574A9",
-        chart.addGraph(graph);
 
-        chart.write('chartdiv');
     
-    },
-    
-    scatter: function (data) {
+    scatter: function (data, chartNo) {
         
         var chart = new AmCharts.AmXYChart();
         chart.dataProvider = data;
@@ -241,10 +167,10 @@
         graph.lineColor = "#2574A9",
         chart.addGraph(graph);
         
-        chart.write('chartdiv');
+        chart.write('chartdiv'+chartNo);
     },
     
-    scatterGrouped: function (data) {
+    scatterGrouped: function (data,chartNo) {
         
         var chart = new AmCharts.AmXYChart();
         chart.dataProvider = data;
@@ -268,7 +194,7 @@
        // graph1.lineColor = "#2574A9",
         chart.addGraph(graph1);
         
-        chart.write('chartdiv');
+        chart.write('chartdiv'+chartNo);
     }
     
     

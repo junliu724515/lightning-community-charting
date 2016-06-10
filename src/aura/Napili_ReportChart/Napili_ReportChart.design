@@ -1,4 +1,5 @@
 <design:component>
+    <design:attribute name="chartNumber" label="Chart No" description="The index number of Chart in community" />
     <design:attribute name="chartReportId" label="Report Id" description="" />
     <design:attribute name="chartTheme" label="Chart Theme" datasource="light,dark,patterns,default" />
     <design:attribute name="chartBackgroundColor" label="Chart Background Color" description="" />
